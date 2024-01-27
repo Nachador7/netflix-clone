@@ -22,9 +22,10 @@ const SavedShows = () => {
     };
 
     useEffect(() => {
-        onSnapshot(doc(db, 'users', `${user?.email}`), (doc)=> {
-            setMovies(doc.data()?.savedShows);
+        const unsubscribe = onSnapshot(doc(db, 'users', `${user?.email}`), (doc)=> {
+            setMovies(doc.data()?.savedShows || []);
         })
+        return () => unsubscribe();
     },[user?.email])
 
     const movieRef = doc(db, 'users', `${user?.email}`)
