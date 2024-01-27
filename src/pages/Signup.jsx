@@ -1,26 +1,32 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { UserAuth } from '../context/AuthContext'
+import React, { useState, } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserAuth } from '../context/AuthContext';
 
 const Signup = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [error, setError] = useState('')
-    const {user, signUp} = UserAuth()
-    const navigate = useNavigate()
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const { signUp } = UserAuth();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-            e.preventDefault()
-            setError('')
-            try {
-                await signUp(email,password)
-                navigate('/')
+        e.preventDefault()
+        setError('')
 
-            } catch (error) {
-                 console.log(error)
-                 setError(error.message)
-            }
-    }
+        if (password.length < 6) {
+            setError('Password must be at least 6 characters long.');
+            return; // Prevent further execution if the password is too short
+        }
+
+        try {
+            await signUp(email,password)
+            navigate('/')
+
+        } catch (error) {
+             console.log(error)
+             setError(error.message)
+        }
+}
 
   return (
     <>
