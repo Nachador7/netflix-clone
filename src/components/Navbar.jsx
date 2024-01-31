@@ -5,7 +5,6 @@ import { UserAuth } from '../context/AuthContext'
 const Navbar = () => {
   const {user, logOut} = UserAuth()
   const navigate = useNavigate()
-  // console.log(user)
 
   const handleLogout = async () => {
     try {
@@ -21,7 +20,7 @@ const Navbar = () => {
       <Link to='/'>
       <h1 
       className='text-red-600 text-4xl font-bold cursor-pointer'>
-        NACHFLIX</h1>
+        NETFLIX</h1>
         </Link>
         {user?.email ? <div>
             <Link to='/account'>
